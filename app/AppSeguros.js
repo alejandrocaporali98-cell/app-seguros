@@ -13,26 +13,24 @@ const fmtMXN = (n) =>
 const udiAMXN = (u, udi) => fmtMXN(u * udi);
 
 // ─── COLORES DE MARCA ────────────────────────────────────────────────────────
-// Extraídos del logo: azul cobalto + plata metálica
 const C = {
-  navy:      "#0D2E6B",   // azul oscuro fondo
-  navyMid:   "#1B55A6",   // azul principal de la marca
-  brandBlue: "#1B55A6",   // azul del logo
-  silver:    "#A0AAB8",   // plata del logo
-  silverLight:"#C8D0DA",  // plata clara
-  white:     "#FFFFFF",
-  offWhite:  "#F4F7FB",
-  gray:      "#5A6478",
-  grayLight: "#E0E6EF",
-  mint:      "#00A878",
-  danger:    "#C0392B",
-  warning:   "#B7791F",
-  teal:      "#0077A8",
-  whatsapp:  "#25D366",
+  navy:        "#0D2E6B",
+  navyMid:     "#1B55A6",
+  brandBlue:   "#1B55A6",
+  silver:      "#A0AAB8",
+  silverLight: "#C8D0DA",
+  white:       "#FFFFFF",
+  offWhite:    "#F4F7FB",
+  gray:        "#5A6478",
+  grayLight:   "#E0E6EF",
+  mint:        "#00A878",
+  danger:      "#C0392B",
+  warning:     "#B7791F",
+  teal:        "#0077A8",
+  whatsapp:    "#25D366",
 };
 
-// ─── LOGO DE LA EMPRESA ───────────────────────────────────────────────────────
-// Coloca tu logo en public/logo.png para que aparezca aquí
+// ─── LOGO ─────────────────────────────────────────────────────────────────────
 const Logo = ({ size = 64, style = {} }) => (
   <div style={{
     width: size, height: size, borderRadius: "50%",
@@ -55,17 +53,175 @@ const Logo = ({ size = 64, style = {} }) => (
   </div>
 );
 
-// ─── PRODUCTOS ───────────────────────────────────────────────────────────────
+// ─── PRODUCTOS ────────────────────────────────────────────────────────────────
 const POLIZAS = [
-  { id:"smnyl_vida",         aseguradora:"Seguros Monterrey New York Life", logo:"🏛️", nombre:"Realiza® — Vida Vitalicio",               icono:"🛡️", descripcion:"Seguro de vida vitalicio con componente de ahorro. Aportaciones adaptadas a tu ingreso en cada etapa.",  beneficios:["Protección vitalicia por fallecimiento","Ahorro en UDIs, pesos o dólares","Exención de primas por invalidez total","Protección adicional por muerte accidental (opc.)","Coberturas extra contratables en cualquier momento"], desdeUDI:400,  plazo:"Vitalicio",               color:C.navyMid,  ramo:"Vida" },
-  { id:"smnyl_se_adapta",    aseguradora:"Seguros Monterrey New York Life", logo:"🏛️", nombre:"Se Adapta® — Vida Temporal",               icono:"🔄", descripcion:"Protección por fallecimiento que crece contigo. Convertible a plan mayor sin exámenes médicos.",             beneficios:["Prima muy accesible desde inicio","Derecho a convertir a plan mayor","Suma asegurada ajustable","Cobertura por accidente opcional","Ideal para etapas productivas tempranas"],            desdeUDI:200,  plazo:"Temporal convertible",   color:"#0369A1",  ramo:"Vida" },
-  { id:"smnyl_gmm",          aseguradora:"Seguros Monterrey New York Life", logo:"🏛️", nombre:"Alfa Medical Flex — GMM",                  icono:"🏥", descripcion:"Gastos Médicos Mayores donde tú decides deducible y coaseguro. Red médica nacional completa.",             beneficios:["Deducible y coaseguro a tu medida","Red médica SMNYL nacional","Cobertura por enfermedad y accidente","Planes para familia completa","Póliza en dólares sin pérdida inflacionaria"],      desdeUDI:900,  plazo:"Anual renovable",         color:C.teal,     ramo:"Gastos Médicos" },
-  { id:"smnyl_gmm_int",      aseguradora:"Seguros Monterrey New York Life", logo:"🏛️", nombre:"Alfa Medical Internacional",               icono:"🌍", descripcion:"Gastos Médicos con cobertura mundial. Atención en cualquier país con los mejores especialistas.",          beneficios:["Cobertura en todo el mundo","Especialistas internacionales","Póliza en dólares","Reembolso en pesos mexicanos","Urgencias y tratamientos programados"],                             desdeUDI:1800, plazo:"Anual renovable",         color:"#0891B2",  ramo:"Gastos Médicos" },
-  { id:"smnyl_imagina",      aseguradora:"Seguros Monterrey New York Life", logo:"🏛️", nombre:"Imagina Ser® — Retiro",                   icono:"💰", descripcion:"Seguro de vida con ahorro para el retiro. Rendimientos garantizados y suma entregada al retirarse.",       beneficios:["Retiro a los 55, 60 o 65 años","Rendimientos en UDIs, pesos o dólares","Ingreso mensual vitalicio (Nuevo Plenitud®)","Protección por fallecimiento durante ahorro","Aportaciones adicionales disponibles"],desdeUDI:1100, plazo:"Hasta retiro elegido",    color:C.mint,     ramo:"Retiro" },
-  { id:"gnp_privilegio",     aseguradora:"GNP Seguros",                     logo:"🔷", nombre:"Privilegio — Protección Temporal",        icono:"⚡", descripcion:"Alta protección en MXN o USD. Plazos de 1 a 30 años o hasta los 65 años.",                                 beneficios:["Desde $5,000,000 MXN o $500,000 USD","Plazos: 1, 5, 10, 15, 20, 30 años o a 65","Suma actualizada con inflación","Orientación médica 24/7 sin costo","Invalidez, muerte accidental, cobertura mujer (opc.)"],desdeUDI:350,  plazo:"1–30 años o a 65 años",  color:"#6D28D9",  ramo:"Vida" },
-  { id:"gnp_proyecta",       aseguradora:"GNP Seguros",                     logo:"🔷", nombre:"Proyecta® — Retiro Garantizado",          icono:"📈", descripcion:"Ahorro garantizado para retiro a los 55–70 años con deducibilidad fiscal ISR Art. 185.",                  beneficios:["Desde 20,000 USD o $400,000 MXN","Retiro a 55, 60, 65 o 70 años","Deducible ISR Art. 185 anualmente","Libre de impuestos a 60 años + 5 vigencia","Cobertura por fallecimiento incluida"],desdeUDI:1200, plazo:"10 o 15 años de pago",    color:"#B45309",  ramo:"Retiro" },
-  { id:"gnp_consolida",      aseguradora:"GNP Seguros",                     logo:"🔷", nombre:"Consolida Total® — PPR",                  icono:"🏆", descripcion:"Ahorro flexible para retiro a 65 años con doble estrategia fiscal Art. 151 y Art. 185.",                  beneficios:["Ahorro garantizado a los 65 años","Doble estrategia fiscal LISR","Desde $400,000 MXN actualizable","Sin saldos mínimos ni comisiones","Edad: 18 a 55 años"],                         desdeUDI:1300, plazo:"Hasta los 65 años",       color:"#0F766E",  ramo:"Retiro" },
-  { id:"gnp_vida_inversion",  aseguradora:"GNP Seguros",                    logo:"🔷", nombre:"Vida Inversión — Instrumento Financiero", icono:"💹", descripcion:"Seguro con rendimientos superiores a tasa bancaria, alta liquidez y aportaciones desde $1,000 MXN.",     beneficios:["Desde $400,000 MXN (actualizable)","Rendimientos superiores a banco","Perfil: conservador, moderado o audaz","Aportaciones desde $1,000 sin comisiones","Retiros libres en cualquier momento"],desdeUDI:800,  plazo:"A 65 años o vitalicio",  color:"#15803D",  ramo:"Ahorro / Inversión" },
+  // ── SMNYL · VIDA ─────────────────────────────────────────────────────────
+  {
+    id:"smnyl_realiza", aseguradora:"Seguros Monterrey New York Life", logo:"🏛️", ramo:"Vida",
+    nombre:"Realiza® — Vida Vitalicio", icono:"🛡️", color:C.navyMid,
+    plazo:"Vitalicio",
+    descripcion:"Seguro de vida individual vitalicio con componente de ahorro. Protege a tus beneficiarios y construye patrimonio con aportaciones adicionales en UDIs, pesos o dólares.",
+    beneficios:["Suma asegurada entregada a beneficiarios por fallecimiento","Ahorro acumulable con aportaciones adicionales (excedentes)","Moneda a elegir: UDIs, pesos mexicanos o dólares","Exención del pago de primas por invalidez total permanente","Cobertura adicional por muerte accidental (opcional)","Coberturas complementarias contratables en cualquier momento"],
+    desdeUDI:400,
+  },
+  {
+    id:"smnyl_se_adapta", aseguradora:"Seguros Monterrey New York Life", logo:"🏛️", ramo:"Vida",
+    nombre:"Se Adapta® — Vida Temporal", icono:"🔄", color:"#0369A1",
+    plazo:"Renovable cada 5 años hasta 65",
+    descripcion:"Seguro de vida temporal de bajo costo que se renueva automáticamente cada 5 años hasta los 65 años. Convertible a plan mayor sin exámenes médicos entre el 3er y 10mo año.",
+    beneficios:["Prima muy accesible, solo ofrece protección por fallecimiento","Renovación automática cada 5 años hasta los 65 años","Conversión a Orvi®, Realiza®, Imagina Ser® u Objetivo Vida® sin exámenes","Anticipo del 25% de la suma asegurada por enfermedad terminal (hasta $700,000 MXN)","Opción de coberturas complementarias adicionales","Ideal para etapas tempranas de vida productiva"],
+    desdeUDI:200,
+  },
+  {
+    id:"smnyl_orvi", aseguradora:"Seguros Monterrey New York Life", logo:"🏛️", ramo:"Vida",
+    nombre:"Orvi® — Vida Vitalicio 99", icono:"♾️", color:"#1B55A6",
+    plazo:"Hasta los 99 años",
+    descripcion:"Seguro de vida individual de protección vitalicia hasta los 99 años. Protege a tu familia de por vida con la suma asegurada que elijas.",
+    beneficios:["Protección vitalicia por fallecimiento hasta los 99 años","Suma asegurada en UDIs, pesos o dólares","Anticipo del 25% de la suma por enfermedad terminal (hasta $700,000 MXN)","Exención de primas por invalidez total y permanente (opcional)","Cobertura por muerte accidental adicional (opcional)","Conversión desde Se Adapta® sin exámenes médicos"],
+    desdeUDI:450,
+  },
+  {
+    id:"smnyl_vida_mujer", aseguradora:"Seguros Monterrey New York Life", logo:"🏛️", ramo:"Vida",
+    nombre:"Vida Mujer® — Protección y Ahorro Femenino", icono:"👩", color:"#BE185D",
+    plazo:"20 años",
+    descripcion:"Seguro de vida individual exclusivo para mujeres con plan de ahorro programado a 20 años. Recibe anticipos de tu suma asegurada desde el 5° año y recuperas el 115% al final del plazo.",
+    beneficios:["Plan de ahorro: recibe el 5% cada 2 años a partir del año 5 (años 5, 7, 9, 11, 13, 15, 17)","Al vencimiento en el año 20 recibes el 80% restante (total: 115% de la suma asegurada)","Protección por fallecimiento durante toda la vigencia","Protección por muerte accidental incluida sin costo extra","Protección por viudez: apoyo si fallece tu cónyuge","Exención de pago de primas por invalidez total y permanente","Cobertura adicional por Cáncer Femenino (opcional)","Cobertura por complicaciones del embarazo y padecimientos femeninos (opcional)","Renta por pérdida de ingreso por invalidez total y temporal (opcional)","Edad de contratación: 18 a 55 años"],
+    desdeUDI:500,
+  },
+  {
+    id:"smnyl_star_temporal", aseguradora:"Seguros Monterrey New York Life", logo:"🏛️", ramo:"Vida",
+    nombre:"Star Temporal® — Protección Flexible", icono:"⭐", color:"#0369A1",
+    plazo:"Plazo elegido con renovación automática",
+    descripcion:"Seguro de vida temporal donde tú eliges el plazo y la forma de pago. Se renueva automáticamente al término del período contratado.",
+    beneficios:["Elige el plazo de protección que mejor se adapte a ti","Pago mensual, semestral o anual según tus posibilidades","Renovación automática al término del período","Suma asegurada entregada a beneficiarios por fallecimiento","Anticipo del 25% de la suma por enfermedad terminal (hasta $700,000 MXN)","Coberturas adicionales contratables"],
+    desdeUDI:180,
+  },
+  {
+    id:"smnyl_objetivo_vida", aseguradora:"Seguros Monterrey New York Life", logo:"🏛️", ramo:"Vida",
+    nombre:"Objetivo Vida® — Vida Vitalicio con Inversión", icono:"🎯", color:"#1D4ED8",
+    plazo:"Vitalicio",
+    descripcion:"Seguro de vida vitalicio con componente de inversión ligado al mercado. Tú decides cuánto y por cuánto tiempo ahorras, con la flexibilidad de elegir el destino del beneficio para tus seres queridos.",
+    beneficios:["Protección vitalicia por fallecimiento desde la contratación","Componente de ahorro con rendimientos según el mercado y perfil de riesgo elegido","Elige: beneficiarios reciben Suma Asegurada + Ahorro, o solo Suma Asegurada","Anticipo del 25% de la suma asegurada por enfermedad terminal (hasta $700,000 MXN)","Asesoría para segunda opinión médica en EE.UU. sin costo","Aportaciones adicionales en cualquier momento","Ahorro en dólares o UDIs","Edad de contratación: 18 a 55 años"],
+    desdeUDI:500,
+  },
+  // ── SMNYL · AHORRO / INVERSIÓN ────────────────────────────────────────────
+  {
+    id:"smnyl_mio", aseguradora:"Seguros Monterrey New York Life", logo:"🏛️", ramo:"Ahorro / Inversión",
+    nombre:"Mío® — Ahorro por Metas", icono:"🎯", color:"#0F766E",
+    plazo:"3 a 10 años por meta",
+    descripcion:"Seguro de vida individual de ahorro a largo plazo con hasta 4 metas financieras simultáneas. Suma asegurada en UDIs que protege contra la inflación.",
+    beneficios:["Define entre 1 y 4 metas de ahorro con plazos de 3 a 10 años","Suma asegurada en UDIs: mantiene el valor real contra la inflación","Al cumplir cada meta recibes el monto contratado más rendimientos","Protección por invalidez total y permanente (cubre el pago de primas)","Beneficiarios reciben la suma asegurada en caso de fallecimiento","Anticipo del 25% por infarto, ACV, insuficiencia renal o cáncer","Retiros parciales de metas permitidos","Edad de contratación: 18 a 55 años"],
+    desdeUDI:350,
+  },
+  {
+    id:"smnyl_star_dotal", aseguradora:"Seguros Monterrey New York Life", logo:"🏛️", ramo:"Ahorro / Inversión",
+    nombre:"Star Dotal® — Ahorro con Protección", icono:"⭐", color:"#B45309",
+    plazo:"5, 10, 15 o 20 años",
+    descripcion:"Seguro de vida que genera ahorro durante los años que dure el plan. Al vencimiento recibes el dinero acumulado para cumplir tus metas y sueños.",
+    beneficios:["Elige la duración: 5, 10, 15 o 20 años","Moneda a elegir: dólares o UDIs según el plazo","Al vencimiento recibes la suma asegurada más rendimientos generados","En caso de fallecimiento, beneficiarios reciben la suma contratada","Invalidez total: dejas de pagar y recibes el ahorro al final","Opción de beneficio adicional por invalidez permanente"],
+    desdeUDI:600,
+  },
+  {
+    id:"smnyl_legado", aseguradora:"Seguros Monterrey New York Life", logo:"🏛️", ramo:"Ahorro / Inversión",
+    nombre:"Legado® — Patrimonio Heredable", icono:"🏰", color:"#7C3AED",
+    plazo:"Vitalicio",
+    descripcion:"Seguro de vida individual diseñado para construir y dejar un patrimonio mayor a tu familia. Ahorro a largo plazo en dólares o pesos con rendimiento mínimo garantizado.",
+    beneficios:["Suma asegurada libre de impuestos para beneficiarios por fallecimiento","Ahorro en dólares con rendimiento mínimo garantizado del 1%","Ahorro en pesos con rendimiento mínimo garantizado del 3%","Aportaciones adicionales permitidas en cualquier momento","Anticipo del 25% de la suma asegurada por enfermedad terminal (hasta $700,000 MXN o equivalente)","Asesoría para segunda opinión médica en EE.UU.","Las primas no son deducibles de ISR (producto patrimonial)","Edad de contratación: 18 a 65 años"],
+    desdeUDI:600,
+  },
+  {
+    id:"smnyl_segubeca", aseguradora:"Seguros Monterrey New York Life", logo:"🏛️", ramo:"Ahorro / Inversión",
+    nombre:"SeguBeca® — Seguro Educativo", icono:"🎓", color:"#0891B2",
+    plazo:"Hasta los 18 años del hijo",
+    descripcion:"Seguro de vida individual que asegura la educación universitaria de tus hijos desde su nacimiento hasta los 13 años. Ahorro en dólares o UDIs con protección de orfandad.",
+    beneficios:["Fondo de ahorro universitario en dólares o UDIs con rendimientos garantizados","A los 18 años del hijo empieza a recibir mensualidades del fondo acumulado","Si falleces, las primas quedan exentas y el plan continúa sin costo","Anticipo del 15% de la suma asegurada al beneficiario en caso de fallecimiento del asegurado","Exención de primas por invalidez total y permanente del contratante","Opción de conversión a nuevo seguro de vida individual sin exámenes médicos (entre año 3 y 10)","Cobertura adicional por muerte accidental (opcional)","El asegurado (papá/mamá) debe tener entre 18 y 55 años; hijo entre 0 y 13 años"],
+    desdeUDI:450,
+  },
+  // ── SMNYL · RETIRO ────────────────────────────────────────────────────────
+  {
+    id:"smnyl_imagina", aseguradora:"Seguros Monterrey New York Life", logo:"🏛️", ramo:"Retiro",
+    nombre:"Imagina Ser® — Retiro con Estímulo Fiscal", icono:"💰", color:C.mint,
+    plazo:"Hasta el retiro (60 años+)",
+    descripcion:"Seguro de vida individual con ahorro para el retiro, sujeto a estímulos fiscales (PPR). Rendimiento mínimo garantizado y opciones de ingreso mensual vitalicio.",
+    beneficios:["Rendimiento mínimo garantizado sobre el ahorro acumulado","Retiro del fondo a partir de los 60 años (mínimo 5 años de vigencia)","Deducible de ISR sobre aportaciones anuales (Art. 151 LISR)","Retiro libre de impuestos al cumplir requisitos fiscales","Ingreso mensual vitalicio con Nuevo Plenitud® al jubilarte","Protección por fallecimiento durante el período de ahorro","Aportaciones adicionales en cualquier momento","El contratante y asegurado deben ser la misma persona (PPR)"],
+    desdeUDI:1100,
+  },
+  {
+    id:"smnyl_imagina_pl", aseguradora:"Seguros Monterrey New York Life", logo:"🏛️", ramo:"Retiro",
+    nombre:"Imagina Ser Pagos Limitados® — PPR Plazo Fijo", icono:"🏦", color:"#0D6E64",
+    plazo:"Pagas 10 o 15 años, disfrutas toda la vida",
+    descripcion:"Plan de ahorro para el retiro con estímulos fiscales (PPR) en el que terminas de pagar en 10 o 15 años y tu dinero sigue creciendo hasta la jubilación. Ahorra en dólares o UDIs.",
+    beneficios:["Pagas primas solo 10 años (18–55 años) o 15 años (18–50 años)","Rendimiento mínimo garantizado en dólares (1%) o UDIs (3%)","Deducible de ISR sobre aportaciones (Art. 151 LISR)","Retiro a partir de los 60 años (mínimo 5 años de vigencia)","Cobro en un solo pago o como renta mensual vitalicia","Anticipo del 25% de la suma asegurada por enfermedad terminal","Cobertura adicional por muerte accidental","El contratante y el asegurado deben ser la misma persona (PPR)"],
+    desdeUDI:1200,
+  },
+  {
+    id:"smnyl_nuevo_plenitud", aseguradora:"Seguros Monterrey New York Life", logo:"🏛️", ramo:"Retiro",
+    nombre:"Nuevo Plenitud® — Renta Vitalicia Garantizada", icono:"🌅", color:"#EA580C",
+    plazo:"Renta vitalicia desde la jubilación",
+    descripcion:"Seguro de vida con renta mensual vitalicia garantizada para la etapa de retiro. Complementa tu AFORE y asegura ingresos mensuales de por vida en dólares o UDIs.",
+    beneficios:["Renta mensual vitalicia garantizada en dólares o UDIs","Aguinaldo de retiro en diciembre durante los primeros 5 años (equivale a una mensualidad)","Opción de retiro anticipado: solicita un pago equivalente a 6 mensualidades en cualquier momento","Anticipo del 25% de la suma asegurada por enfermedad terminal (hasta $700,000 MXN)","Protección por fallecimiento antes del inicio de la renta","Ideal como complemento a Imagina Ser® al llegar al retiro"],
+    desdeUDI:1500,
+  },
+  // ── SMNYL · GASTOS MÉDICOS ────────────────────────────────────────────────
+  {
+    id:"smnyl_alfa_medical", aseguradora:"Seguros Monterrey New York Life", logo:"🏛️", ramo:"Gastos Médicos",
+    nombre:"Alfa Medical® — GMM Nacional", icono:"🏥", color:C.teal,
+    plazo:"Anual renovable",
+    descripcion:"Seguro de Gastos Médicos Mayores individual con amplia red médica nacional. Cubre enfermedades, accidentes, cirugías, hospitalizaciones y medicamentos.",
+    beneficios:["Coaseguro a elegir: 10%, 15%, 20% o 25% con tope máximo","Red médica SMNYL en todo México","Cobertura materna desde el 5to mes de embarazo","Consulta médica a domicilio (primera consulta sin costo)","Asesoría médica virtual, psicológica y nutricional","Cobertura de medicamentos con descuento en farmacias afiliadas","Protección por enfermedades graves y accidentes","Vigencia anual con renovación garantizada"],
+    desdeUDI:900,
+  },
+  {
+    id:"smnyl_alfa_flex", aseguradora:"Seguros Monterrey New York Life", logo:"🏛️", ramo:"Gastos Médicos",
+    nombre:"Alfa Medical Flex® — GMM Adaptable", icono:"💊", color:"#0077A8",
+    plazo:"Anual renovable",
+    descripcion:"Gastos Médicos Mayores flexible que se adapta a tu presupuesto. Acceso a hospitales en México con beneficios adicionales por accidente y cobertura internacional.",
+    beneficios:["Deducible reducido a la mitad en caso de accidente","50% de descuento en copago en la primera hospitalización","Cobertura internacional de emergencia hasta 12 meses continuos","Sin coaseguro en el extranjero, solo pagas el deducible","Protección funeraria incluida (traslado de restos +100 km)","Anticipo del 50% de la suma asegurada por enfermedad terminal","Cobertura de bebé con condiciones congénitas o complicaciones de parto","Apoyo económico por maternidad desde el 5to mes"],
+    desdeUDI:950,
+  },
+  {
+    id:"smnyl_alfa_int", aseguradora:"Seguros Monterrey New York Life", logo:"🏛️", ramo:"Gastos Médicos",
+    nombre:"Alfa Medical Internacional® — Cobertura Mundial", icono:"🌍", color:"#0891B2",
+    plazo:"Anual renovable",
+    descripcion:"Seguro de Gastos Médicos con cobertura en cualquier parte del mundo. Atención con los mejores especialistas internacionales en hospitales de primer nivel.",
+    beneficios:["Cobertura médica en todo el mundo sin restricciones de red","Cuarto semiprivado hasta $500 USD/día; UCI hasta $1,000 USD/día","Póliza en dólares americanos sin pérdida por inflación","Urgencias y tratamientos programados en el extranjero","Repatriación sanitaria incluida","Cobertura de medicamentos y honorarios médicos internacionales","Acceso a especialistas de clase mundial","Residencia en México requerida; edad 18-64 años"],
+    desdeUDI:1800,
+  },
+  // ── GNP · VIDA ────────────────────────────────────────────────────────────
+  {
+    id:"gnp_privilegio", aseguradora:"GNP Seguros", logo:"🔷", ramo:"Vida",
+    nombre:"Privilegio® — Protección Temporal", icono:"⚡", color:"#6D28D9",
+    plazo:"1 a 30 años o hasta los 65",
+    descripcion:"Seguro de vida temporal de alta protección en pesos o dólares. Plazos flexibles de 1 a 30 años con suma asegurada actualizable con la inflación.",
+    beneficios:["Suma asegurada desde $5,000,000 MXN o $500,000 USD","Plazos: 1, 5, 10, 15, 20, 30 años o a los 65 años","Suma actualizada con inflación (en pesos)","Orientación médica telefónica 24/7 sin costo adicional","Cobertura adicional por invalidez total (opcional)","Cobertura adicional por muerte accidental (opcional)","Cobertura mujer: enfermedades femeninas (opcional)","Prima muy accesible con alta suma asegurada"],
+    desdeUDI:350,
+  },
+  // ── GNP · RETIRO ──────────────────────────────────────────────────────────
+  {
+    id:"gnp_proyecta", aseguradora:"GNP Seguros", logo:"🔷", ramo:"Retiro",
+    nombre:"Proyecta® — Retiro Garantizado", icono:"📈", color:"#B45309",
+    plazo:"10 o 15 años de pago",
+    descripcion:"Plan de ahorro garantizado para el retiro a los 55–70 años con deducibilidad fiscal ISR Art. 185. Ideal para quienes buscan certeza en su futuro financiero.",
+    beneficios:["Ahorro garantizado en dólares o pesos (desde $20,000 USD o $400,000 MXN)","Retiro a los 55, 60, 65 o 70 años","Deducible de ISR Art. 185 cada año que aportas","Libre de impuestos al cumplir 60 años con 5 años de vigencia","Cobertura por fallecimiento durante el período de ahorro","Aportaciones extraordinarias permitidas","Crecimiento garantizado sin riesgo de mercado"],
+    desdeUDI:1200,
+  },
+  {
+    id:"gnp_consolida", aseguradora:"GNP Seguros", logo:"🔷", ramo:"Retiro",
+    nombre:"Consolida Total® — PPR Doble Fiscal", icono:"🏆", color:"#0F766E",
+    plazo:"Hasta los 65 años",
+    descripcion:"Plan de ahorro flexible para retiro a los 65 años con doble estrategia fiscal: Art. 151 y Art. 185. Máxima deducibilidad para optimizar tu carga fiscal.",
+    beneficios:["Doble estrategia fiscal: Art. 151 y Art. 185 LISR","Ahorro garantizado a los 65 años desde $400,000 MXN","Sin saldos mínimos requeridos ni comisiones","Aportaciones flexibles según tu capacidad en cada etapa","Cobertura por fallecimiento incluida durante el plan","Edad de contratación: 18 a 55 años","Sin penalización por ajustar aportaciones"],
+    desdeUDI:1300,
+  },
+  // ── GNP · AHORRO ─────────────────────────────────────────────────────────
+  {
+    id:"gnp_vida_inversion", aseguradora:"GNP Seguros", logo:"🔷", ramo:"Ahorro / Inversión",
+    nombre:"Vida Inversión® — Instrumento Financiero", icono:"💹", color:"#15803D",
+    plazo:"A 65 años o vitalicio",
+    descripcion:"Seguro de vida con rendimientos superiores a tasa bancaria, alta liquidez y aportaciones desde $1,000 MXN. Perfil de inversión a tu medida.",
+    beneficios:["Rendimientos superiores a los de instituciones bancarias","Aportaciones adicionales desde $1,000 MXN sin comisiones","Retiros parciales libres en cualquier momento","Perfil de inversión: conservador, moderado o audaz","Suma asegurada desde $400,000 MXN (actualizable)","Sin penalización por retiro anticipado","Protección por fallecimiento incluida durante la vigencia"],
+    desdeUDI:800,
+  },
 ];
 
 const RAMOS = ["Todos", "Vida", "Gastos Médicos", "Retiro", "Ahorro / Inversión"];
@@ -88,7 +244,6 @@ const S = {
 const SESSION_KEY = "asegurate_session";
 const HISTORY_KEY = "asegurate_historial";
 const SESSION_TTL = 12 * 60 * 60 * 1000;
-
 const sessionValida    = () => { try { const ts = localStorage.getItem(SESSION_KEY); return ts ? Date.now() - Number(ts) < SESSION_TTL : false; } catch { return false; } };
 const guardarSesion    = () => { try { localStorage.setItem(SESSION_KEY, String(Date.now())); } catch {} };
 const borrarSesion     = () => { try { localStorage.removeItem(SESSION_KEY); } catch {} };
@@ -119,8 +274,8 @@ const BarraProgreso = ({ pantalla, udi, udiSource, onLogout, onHistorial }) => (
         </div>
       </div>
       <div style={{ display: "flex", gap: 6 }}>
-        <button onClick={onHistorial} style={{ background: "none", border: `1px solid rgba(255,255,255,0.2)`, borderRadius: 6, padding: "4px 10px", fontSize: 11, color: "rgba(255,255,255,0.65)", cursor: "pointer" }}>📋</button>
-        <button onClick={onLogout}    style={{ background: "none", border: `1px solid rgba(255,255,255,0.15)`, borderRadius: 6, padding: "4px 10px", fontSize: 11, color: "rgba(255,255,255,0.4)", cursor: "pointer" }}>Salir</button>
+        <button onClick={onHistorial} style={{ background: "none", border: "1px solid rgba(255,255,255,0.2)", borderRadius: 6, padding: "4px 10px", fontSize: 11, color: "rgba(255,255,255,0.65)", cursor: "pointer" }}>📋</button>
+        <button onClick={onLogout}    style={{ background: "none", border: "1px solid rgba(255,255,255,0.15)", borderRadius: 6, padding: "4px 10px", fontSize: 11, color: "rgba(255,255,255,0.4)", cursor: "pointer" }}>Salir</button>
       </div>
     </div>
     <div style={{ display: "flex", justifyContent: "space-between" }}>
@@ -146,7 +301,6 @@ const PantallaLogin = ({ onLogin }) => {
   const [error, setError]       = useState("");
   const [cargando, setCargando] = useState(false);
   const [mostrar, setMostrar]   = useState(false);
-
   const handleLogin = async () => {
     if (!usuario || !password) { setError("Ingresa usuario y contraseña."); return; }
     setCargando(true); setError("");
@@ -161,7 +315,6 @@ const PantallaLogin = ({ onLogin }) => {
     } catch { setError("Error de conexión. Intenta de nuevo."); }
     finally { setCargando(false); }
   };
-
   return (
     <div style={{ minHeight: "100vh", background: `linear-gradient(160deg, ${C.navy} 0%, ${C.navyMid} 100%)`, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: 24 }}>
       <div style={{ textAlign: "center", marginBottom: 36 }}>
@@ -170,7 +323,6 @@ const PantallaLogin = ({ onLogin }) => {
         <div style={{ fontSize: 12, color: C.silverLight, marginTop: 4, fontWeight: 700, letterSpacing: "1.5px" }}>ASESORES EN SEGUROS</div>
         <div style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", marginTop: 6 }}>Portal de Cotización · Uso interno</div>
       </div>
-
       <div style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", borderRadius: 16, padding: 32, width: "100%", maxWidth: 380 }}>
         <div style={{ fontSize: 15, fontWeight: 700, color: C.white, marginBottom: 22 }}>Iniciar sesión</div>
         <div style={{ marginBottom: 14 }}>
@@ -199,7 +351,6 @@ const PantallaLogin = ({ onLogin }) => {
           {cargando ? "Verificando…" : "Entrar al sistema"}
         </button>
       </div>
-
       <div style={{ fontSize: 11, color: "rgba(255,255,255,0.2)", marginTop: 28, textAlign: "center" }}>
         SMNYL · GNP · Monterrey, N.L.{"\n"}
         <a href="https://instagram.com/aseguratetutranquilidad" target="_blank" rel="noreferrer"
@@ -507,40 +658,13 @@ const Pantalla4 = ({ cliente, udi, polizasSeleccionadas, onSeleccionar, onBack, 
 
 // ─── PANTALLA 5 — COTIZACIÓN FINAL ───────────────────────────────────────────
 const Pantalla5 = ({ cliente, polizasSeleccionadas, udi, porcentaje, onNuevaCita }) => {
-  const polizas    = polizasSeleccionadas.map(id => POLIZAS.find(p => p.id === id)).filter(Boolean);
-  const hoy        = new Date().toLocaleDateString("es-MX", { day: "2-digit", month: "long", year: "numeric" });
-  const gastos     = Number(cliente.gastosMensuales) || Number(cliente.ingresoMensual) * 0.7;
-  const meses      = gastos > 0 ? Math.round((Number(cliente.ingresoMensual) * 3) / gastos) : 0;
-  const sumaRec    = Number(cliente.ingresoMensual) * 12 * 7;
-  const sumaRecUDI = Math.round(sumaRec / udi);
-  const aportacion    = Math.round(Number(cliente.ingresoMensual) * (porcentaje || 0.10));
-  const aportacionUDI = Math.round(aportacion / udi);
-  const proyeccion = [5, 10, 15, 20, 25, 30].map(año => ({
-    año,
-    sinSeguro: Math.round(aportacionUDI * año * 12),
-    conSeguro: Math.round(aportacionUDI * año * 12 * Math.pow(1.06, año)),
-  }));
-
+  const polizas       = polizasSeleccionadas.map(id => POLIZAS.find(p => p.id === id)).filter(Boolean);
+  const hoy           = new Date().toLocaleDateString("es-MX", { day: "2-digit", month: "long", year: "numeric" });
+  const gastos        = Number(cliente.gastosMensuales) || Number(cliente.ingresoMensual) * 0.7;
+  const meses         = gastos > 0 ? Math.round((Number(cliente.ingresoMensual) * 3) / gastos) : 0;
+  const sumaRec       = Number(cliente.ingresoMensual) * 12 * 7;
+  const sumaRecUDI    = Math.round(sumaRec / udi);
   const esComparacion = polizas.length === 2;
-
-  const verPDF = () => {
-    try {
-      const datos = {
-        cliente,
-        polizas,
-        udi,
-        porcentaje: porcentaje || 0.10,
-        aportacionMXN: aportacion,
-        aportacionUDI,
-        proyeccion,
-        sumaRecUDI,
-        sumaRecMXN: sumaRec,
-        fecha: hoy,
-      };
-      localStorage.setItem("asegurate_print_data", JSON.stringify(datos));
-    } catch {}
-    window.open("/print", "_blank");
-  };
 
   const compartirWhatsApp = () => {
     const lineas = [
@@ -549,7 +673,7 @@ const Pantalla5 = ({ cliente, polizasSeleccionadas, udi, porcentaje, onNuevaCita
       `👤 *${cliente.nombre}*  |  ${cliente.edad} años`,
       `💰 Ingreso mensual: ${fmtMXN(cliente.ingresoMensual)}`,
       ``,
-      ...(esComp
+      ...(esComparacion
         ? [`⚖️ *Comparativa:*`, ...polizas.map((p, i) => `${i+1}. *${p.nombre}*\n   Prima desde: ${p.desdeUDI} UDIs/mes (${udiAMXN(p.desdeUDI, udi)})`)]
         : polizas.map(p => [`🛡️ *${p.nombre}*`, `   Prima desde: ${p.desdeUDI} UDIs/mes (${udiAMXN(p.desdeUDI, udi)})`]).flat()),
       ``,
@@ -567,13 +691,15 @@ const Pantalla5 = ({ cliente, polizasSeleccionadas, udi, porcentaje, onNuevaCita
   return (
     <div>
       <div style={S.header}>
-        <div style={{ fontSize: 10, color: C.silverLight, fontWeight: 700, letterSpacing: "1.5px", marginBottom: 4 }}>{esComp ? "COMPARATIVA DE PÓLIZAS" : "COTIZACIÓN PERSONALIZADA"}</div>
+        <div style={{ fontSize: 10, color: C.silverLight, fontWeight: 700, letterSpacing: "1.5px", marginBottom: 4 }}>
+          {esComparacion ? "COMPARATIVA DE PÓLIZAS" : "COTIZACIÓN PERSONALIZADA"}
+        </div>
         <div style={{ fontSize: 22, fontWeight: 800, color: C.white }}>{cliente.nombre}</div>
         <div style={{ fontSize: 12, color: "rgba(255,255,255,0.45)", marginTop: 2 }}>{hoy}</div>
       </div>
       <div style={{ padding: "20px 20px 0" }}>
         <div style={{ ...S.card, borderTop: `4px solid ${C.navyMid}` }}>
-          {/* Encabezado asesor con logo */}
+          {/* Encabezado asesor */}
           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 18, paddingBottom: 16, borderBottom: `1px solid ${C.grayLight}` }}>
             <div>
               <div style={{ fontSize: 16, fontWeight: 800, color: C.navy }}>Asegúrate Tu Tranquilidad</div>
@@ -582,7 +708,6 @@ const Pantalla5 = ({ cliente, polizasSeleccionadas, udi, porcentaje, onNuevaCita
             </div>
             <Logo size={48} />
           </div>
-
           {/* Datos prospecto */}
           <div style={{ background: C.offWhite, borderRadius: 10, padding: 14, marginBottom: 14 }}>
             <div style={{ fontSize: 10, color: C.gray, fontWeight: 700, letterSpacing: "0.8px", marginBottom: 10 }}>DATOS DEL PROSPECTO</div>
@@ -597,9 +722,8 @@ const Pantalla5 = ({ cliente, polizasSeleccionadas, udi, porcentaje, onNuevaCita
               {cliente.correo   && <div><span style={{ fontSize: 10, color: C.gray, display: "block" }}>Correo</span><strong style={{ color: C.navy }}>✉️ {cliente.correo}</strong></div>}
             </div>
           </div>
-
           {/* Pólizas */}
-          {esComp ? (
+          {esComparacion ? (
             <div style={{ marginBottom: 14 }}>
               <div style={{ fontSize: 10, color: C.navy, fontWeight: 700, letterSpacing: "0.8px", marginBottom: 10 }}>⚖️ COMPARATIVA DE PÓLIZAS</div>
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8, marginBottom: 12 }}>
@@ -651,7 +775,6 @@ const Pantalla5 = ({ cliente, polizasSeleccionadas, udi, porcentaje, onNuevaCita
               </div>
             </div>
           )}
-
           {/* Análisis de protección */}
           <div style={{ background: C.offWhite, borderRadius: 10, padding: 14, marginBottom: 14 }}>
             <div style={{ fontSize: 10, color: C.gray, fontWeight: 700, letterSpacing: "0.8px", marginBottom: 10 }}>ANÁLISIS DE PROTECCIÓN</div>
@@ -667,15 +790,13 @@ const Pantalla5 = ({ cliente, polizasSeleccionadas, udi, porcentaje, onNuevaCita
               </div>
             </div>
           </div>
-
           {/* Nota UDI */}
           <div style={{ background: "#EBF2FF", borderRadius: 8, padding: 10, marginBottom: 18, border: `1px solid ${C.navyMid}25` }}>
             <div style={{ fontSize: 11, color: C.gray, lineHeight: 1.5 }}>
               💡 <strong>Sobre las UDIs:</strong> Actualizadas diariamente por Banxico. Valor actual: <strong>${udi.toFixed(6)} MXN</strong>. Los valores exactos se determinan al contratar.
             </div>
           </div>
-
-          {/* Tarjeta de contacto con Instagram */}
+          {/* Tarjeta de contacto */}
           <div style={{ background: `linear-gradient(135deg, ${C.navy}, ${C.navyMid})`, borderRadius: 12, padding: 16, marginBottom: 18 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 12 }}>
               <Logo size={40} />
@@ -696,14 +817,18 @@ const Pantalla5 = ({ cliente, polizasSeleccionadas, udi, porcentaje, onNuevaCita
               </div>
             </div>
           </div>
-
           <div style={{ fontSize: 10, color: C.gray, textAlign: "center", marginBottom: 16, lineHeight: 1.5 }}>
             Esta cotización es informativa. Los valores exactos se determinan en el proceso formal de contratación.
           </div>
-
-          <button style={{ ...S.btnWA, width: "100%", marginBottom: 10 }} onClick={compartirWhatsApp}>📱 Compartir por WhatsApp</button>
-          <button style={{ ...S.btn, width: "100%", marginBottom: 10 }} onClick={() => window.print()}>🖨️ Imprimir / Guardar PDF</button>
-          <button style={{ ...S.btnSec, width: "100%" }} onClick={onNuevaCita}>+ Nueva cotización</button>
+          <button style={{ ...S.btnWA, width: "100%", marginBottom: 10 }} onClick={compartirWhatsApp}>
+            📱 Compartir por WhatsApp
+          </button>
+          <button style={{ ...S.btn, width: "100%", marginBottom: 10 }} onClick={() => window.print()}>
+            🖨️ Imprimir / Guardar PDF
+          </button>
+          <button style={{ ...S.btnSec, width: "100%" }} onClick={onNuevaCita}>
+            + Nueva cotización
+          </button>
         </div>
       </div>
       <div style={{ height: 24 }} />
@@ -763,21 +888,18 @@ export default function AppSeguros() {
     fetch("/api/udi").then(r => r.json()).then(d => { setUdi(d.valor); setUdiSource(d.fuente); }).catch(() => {});
   }, []);
 
-  const handleChange = useCallback((campo, valor) => setCliente(prev => ({ ...prev, [campo]: valor })), []);
-
-  const irAPantalla5 = useCallback(() => {
+  const handleChange  = useCallback((campo, valor) => setCliente(prev => ({ ...prev, [campo]: valor })), []);
+  const irAPantalla5  = useCallback(() => {
     const polizas    = polizasSeleccionadas.map(id => POLIZAS.find(p => p.id === id)).filter(Boolean);
     const sumaRecUDI = Math.round((Number(cliente.ingresoMensual) * 12 * 7) / udi);
     agregarAlHistorial({ id: Date.now(), fecha: new Date().toLocaleDateString("es-MX", { day: "2-digit", month: "long", year: "numeric" }), nombre: cliente.nombre, polizas: polizas.map(p => p.nombre), sumaRecUDI });
     setHistorial(cargarHistorial());
     setPantalla(5);
   }, [cliente, polizasSeleccionadas, udi]);
-
-  const nuevaCita   = useCallback(() => { setPantalla(1); setPolizasSeleccionadas([]); setCliente(CLIENTE_INICIAL); setPorcentaje(0.10); }, []);
+  const nuevaCita    = useCallback(() => { setPantalla(1); setPolizasSeleccionadas([]); setCliente(CLIENTE_INICIAL); setPorcentaje(0.10); }, []);
   const handleLogout = useCallback(() => { borrarSesion(); setAutenticado(false); setPantalla(1); setPolizasSeleccionadas([]); setCliente(CLIENTE_INICIAL); }, []);
 
   if (!autenticado) return <PantallaLogin onLogin={() => setAutenticado(true)} />;
-
   return (
     <div style={{ maxWidth: 480, margin: "0 auto", minHeight: "100vh", background: C.offWhite, fontFamily: "system-ui, -apple-system, sans-serif" }}>
       <BarraProgreso pantalla={pantalla} udi={udi} udiSource={udiSource} onLogout={handleLogout} onHistorial={() => setVerHistorial(true)} />
@@ -785,7 +907,7 @@ export default function AppSeguros() {
       {pantalla === 2 && <Pantalla2 cliente={cliente} udi={udi} onBack={() => setPantalla(1)} onNext={() => setPantalla(3)} />}
       {pantalla === 3 && <Pantalla3 cliente={cliente} udi={udi} porcentaje={porcentaje} onPorcentaje={setPorcentaje} onBack={() => setPantalla(2)} onNext={() => setPantalla(4)} />}
       {pantalla === 4 && <Pantalla4 cliente={cliente} udi={udi} polizasSeleccionadas={polizasSeleccionadas} onSeleccionar={setPolizasSeleccionadas} onBack={() => setPantalla(3)} onNext={irAPantalla5} />}
-      {pantalla === 5 && <Pantalla5 cliente={cliente} polizasSeleccionadas={polizasSeleccionadas} udi={udi} onNuevaCita={nuevaCita} />}
+      {pantalla === 5 && <Pantalla5 cliente={cliente} polizasSeleccionadas={polizasSeleccionadas} udi={udi} porcentaje={porcentaje} onNuevaCita={nuevaCita} />}
       {verHistorial && <HistorialModal historial={historial} onClose={() => setVerHistorial(false)} />}
     </div>
   );
