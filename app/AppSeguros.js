@@ -668,24 +668,53 @@ const Pantalla5 = ({ cliente, polizasSeleccionadas, udi, porcentaje, onNuevaCita
 
   const compartirWhatsApp = () => {
     const lineas = [
-      `*Cotización — Asegúrate Tu Tranquilidad*`,
+      `🛡️ *COTIZACIÓN — ASEGÚRATE TU TRANQUILIDAD*`,
+      `📅 ${hoy}`,
       ``,
-      `👤 *${cliente.nombre}*  |  ${cliente.edad} años`,
-      `💰 Ingreso mensual: ${fmtMXN(cliente.ingresoMensual)}`,
+      `━━━━━━━━━━━━━━━━━━━━`,
+      `👤 *DATOS DEL PROSPECTO*`,
+      `━━━━━━━━━━━━━━━━━━━━`,
+      `• Nombre: *${cliente.nombre}*`,
+      `• Edad: ${cliente.edad} años`,
+      `• Estado civil: ${cliente.estadoCivil}`,
+      `• Hijos: ${cliente.hijos}`,
+      `• Ingreso mensual: *${fmtMXN(cliente.ingresoMensual)}*`,
+      ...(cliente.telefono ? [`• Teléfono: ${cliente.telefono}`] : []),
+      ...(cliente.correo   ? [`• Correo: ${cliente.correo}`]    : []),
       ``,
-      ...(esComparacion
-        ? [`⚖️ *Comparativa:*`, ...polizas.map((p, i) => `${i+1}. *${p.nombre}*\n   Prima desde: ${p.desdeUDI} UDIs/mes (${udiAMXN(p.desdeUDI, udi)})`)]
-        : polizas.map(p => [`🛡️ *${p.nombre}*`, `   Prima desde: ${p.desdeUDI} UDIs/mes (${udiAMXN(p.desdeUDI, udi)})`]).flat()),
+      `━━━━━━━━━━━━━━━━━━━━`,
+      esComparacion ? `⚖️ *COMPARATIVA DE PÓLIZAS*` : `🛡️ *PÓLIZA RECOMENDADA*`,
+      `━━━━━━━━━━━━━━━━━━━━`,
+      ...polizas.flatMap((p, i) => [
+        esComparacion ? `\n*OPCIÓN ${i + 1}*` : ``,
+        `📋 *${p.nombre}*`,
+        `🏢 ${p.aseguradora}`,
+        `⏱ Plazo: ${p.plazo}`,
+        `💵 Prima desde: *${p.desdeUDI} UDIs/mes* (${udiAMXN(p.desdeUDI, udi)})`,
+        ``,
+        `*Beneficios incluidos:*`,
+        ...p.beneficios.map(b => `  ✓ ${b}`),
+      ]),
       ``,
-      `📊 Cobertura recomendada: ${fmtUDI(sumaRecUDI)} (${fmtMXN(sumaRec)})`,
+      `━━━━━━━━━━━━━━━━━━━━`,
+      `📊 *ANÁLISIS DE PROTECCIÓN*`,
+      `━━━━━━━━━━━━━━━━━━━━`,
+      `• Meses de respaldo actual: *${meses} meses*`,
+      `• Cobertura recomendada: *${fmtUDI(sumaRecUDI)}*`,
+      `  (${fmtMXN(sumaRec)})`,
+      `• Valor UDI actual: $${udi.toFixed(4)} MXN (Banxico)`,
       ``,
-      `_Cotización informativa. Valores exactos al contratar._`,
-      ``,
-      `Antonio Caporali · Asegúrate Tu Tranquilidad`,
+      `━━━━━━━━━━━━━━━━━━━━`,
+      `📞 *CONTACTO*`,
+      `━━━━━━━━━━━━━━━━━━━━`,
+      `Antonio Caporali`,
       `📸 @aseguratetutranquilidad`,
       `📧 antonio.caporali@gmail.com`,
+      `📍 Monterrey, N.L.`,
+      ``,
+      `_Cotización informativa. Los valores exactos se determinan en el proceso formal de contratación con el asesor certificado._`,
     ];
-    window.open(`https://wa.me/?text=${encodeURIComponent(lineas.join("\n"))}`, "_blank");
+    window.open(`https://wa.me/528120309233?text=${encodeURIComponent(lineas.join("\n"))}`, "_blank");
   };
 
   return (
