@@ -506,14 +506,41 @@ const Pantalla4 = ({ cliente, udi, polizasSeleccionadas, onSeleccionar, onBack, 
 };
 
 // ─── PANTALLA 5 — COTIZACIÓN FINAL ───────────────────────────────────────────
-const Pantalla5 = ({ cliente, polizasSeleccionadas, udi, onNuevaCita }) => {
+const Pantalla5 = ({ cliente, polizasSeleccionadas, udi, porcentaje, onNuevaCita }) => {
   const polizas    = polizasSeleccionadas.map(id => POLIZAS.find(p => p.id === id)).filter(Boolean);
   const hoy        = new Date().toLocaleDateString("es-MX", { day: "2-digit", month: "long", year: "numeric" });
   const gastos     = Number(cliente.gastosMensuales) || Number(cliente.ingresoMensual) * 0.7;
   const meses      = gastos > 0 ? Math.round((Number(cliente.ingresoMensual) * 3) / gastos) : 0;
   const sumaRec    = Number(cliente.ingresoMensual) * 12 * 7;
   const sumaRecUDI = Math.round(sumaRec / udi);
-  const esComp     = polizas.length === 2;
+  const aportacion    = Math.round(Number(cliente.ingresoMensual) * (porcentaje || 0.10));
+  const aportacionUDI = Math.round(aportacion / udi);
+  const proyeccion = [5, 10, 15, 20, 25, 30].map(año => ({
+    año,
+    sinSeguro: Math.round(aportacionUDI * año * 12),
+    conSeguro: Math.round(aportacionUDI * año * 12 * Math.pow(1.06, año)),
+  }));
+
+  const esComparacion = polizas.length === 2;
+
+  const verPDF = () => {
+    try {
+      const datos = {
+        cliente,
+        polizas,
+        udi,
+        porcentaje: porcentaje || 0.10,
+        aportacionMXN: aportacion,
+        aportacionUDI,
+        proyeccion,
+        sumaRecUDI,
+        sumaRecMXN: sumaRec,
+        fecha: hoy,
+      };
+      localStorage.setItem("asegurate_print_data", JSON.stringify(datos));
+    } catch {}
+    window.open("/print", "_blank");
+  };
 
   const compartirWhatsApp = () => {
     const lineas = [
